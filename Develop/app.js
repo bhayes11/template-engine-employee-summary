@@ -10,6 +10,56 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const createTeam = () =>
+    inquirer.prompt([
+    {
+        type: "input",
+        name: "managerName",
+        message: "What is the Manager's name?"
+    },
+
+    {
+        type: "input",
+        name: "managerId",
+        message: "What is the Manager's id?"
+    },
+    
+    {
+        type: "input",
+        name: "emailManager",
+        message: "What is the Manager's email?",
+    },
+
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "What is the Manager's number?"
+    },
+])
+
+function teamMembers() {
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "addTeam",
+            message: "Choose from the list",
+            choices: [
+                "Add an Engineer",
+                "Add an Intern",
+                "Finished building my team.",
+            ],
+        },
+    ]).then(function(data){
+        if (data.addTeam === "Engineer") {
+            Engineer();
+        }else if (data.addTeam === "Intern"){
+            Intern();
+        } else (outputTeamMembers());
+    })  
+};
+
+createTeam();
+
 //console.log("hi");
 
 
