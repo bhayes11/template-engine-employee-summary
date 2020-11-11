@@ -26,7 +26,7 @@ const createTeam = () =>
     
     {
         type: "input",
-        name: "emailManager",
+        name: "ManagerEmail",
         message: "What is the Manager's email?",
     },
 
@@ -37,7 +37,7 @@ const createTeam = () =>
     },
 ])
 
-function teamMembers() {
+const teamMembers = () =>
     inquirer.prompt([
         {
             type: "list",
@@ -51,15 +51,74 @@ function teamMembers() {
         },
     ]).then(function(data){
         if (data.addTeam === "Engineer") {
-            Engineer();
+            engineer();
         }else if (data.addTeam === "Intern"){
-            Intern();
+            intern();
         } else (outputTeamMembers());
-    })  
-};
+    })
+
+    const engineer = () =>
+    inquirer.prompt([
+    {
+        type: "input",
+        name: "engineerName",
+        message: "What is the Engineer's name?"
+    },
+
+    {
+        type: "input",
+        name: "engineerId",
+        message: "What is the Engineer's id?"
+    },
+    
+    {
+        type: "input",
+        name: "engineerEmail",
+        message: "What is the Engineer's email?",
+    },
+
+    {
+        type: "input",
+        name: "engineerGithub",
+        message: "What is the Engineer's GitHub username?"
+    },
+]).then((data) => {
+    (data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub);
+    });
+
+const intern = () =>
+inquirer.prompt([
+{
+    type: "input",
+    name: "internName",
+    message: "What is the Intern's name?"
+},
+
+{
+    type: "input",
+    name: "internId",
+    message: "What is the Intern's id?"
+},
+
+{
+    type: "input",
+    name: "internEmail",
+    message: "What is the Intern's email?",
+},
+
+{
+    type: "input",
+    name: "internSchool",
+    message: "What is the Intern's school?"
+},
+]).then((data) => {
+    (data.internName, data.internId, data.internEmail, data.internSchool);
+    });
 
 
 
+
+//teamMembers();
 createTeam();
 
 //console.log("hi");
