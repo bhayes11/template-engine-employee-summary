@@ -9,114 +9,139 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { Console } = require("console");
 
-const createTeam = () =>
-    inquirer.prompt([
-    {
-        type: "input",
-        name: "managerName",
-        message: "What is the Manager's name?"
-    },
-
-    {
-        type: "input",
-        name: "managerId",
-        message: "What is the Manager's id?"
-    },
-    
-    {
-        type: "input",
-        name: "ManagerEmail",
-        message: "What is the Manager's email?",
-    },
-
-    {
-        type: "input",
-        name: "officeNumber",
-        message: "What is the Manager's number?"
-    },
-])
-
-const teamMembers = () =>
+const createTeam = () => {
+    console.log("Build your team");
     inquirer.prompt([
         {
-            type: "list",
-            name: "addTeam",
-            message: "Choose from the list",
-            choices: [
-                "Add an Engineer",
-                "Add an Intern",
-                "Finished building my team.",
-            ],
+            type: "input",
+            name: "managerName",
+            message: "What is the Manager's name?"
         },
-    ]).then((data) => {
-            if (data.addTeam === "Engineer") {
-                engineer();
-            } else if (data.addTeam === "Intern") {
-                intern();
-            } else
-                (outputTeamMembers());
+
+        {
+            type: "input",
+            name: "managerId",
+            message: "What is the Manager's id?"
+        },
+    
+        {
+            type: "input",
+            name: "ManagerEmail",
+            message: "What is the Manager's email?",
+        },
+
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "What is the Manager's number?"
+        },
+    ]).then(response => {
+            const manager = new Manager(
+                response.managerName,
+                response.managerId,
+                response.managerEmail,
+                response.officeNumber
+            );
+            console.log(manager);
+            teamMembers();
         })
 
-    const engineer = () =>
-    inquirer.prompt([
-    {
-        type: "input",
-        name: "engineerName",
-        message: "What is the Engineer's name?"
-    },
-
-    {
-        type: "input",
-        name: "engineerId",
-        message: "What is the Engineer's id?"
-    },
+    function teamMembers() {
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "addTeam",
+                message: "Choose from the list",
+                choices: [
+                    "Add an Engineer",
+                    "Add an Intern",
+                    "Finished building my team.",
+                ],
+            },
+        ]).then((data) => {
+                if (data.addTeam === "Engineer") {
+                    engineer();
+                } else if (data.addTeam === "Intern") {
+                    intern();
+                } else
+                    createTeam();
+            })
+    }
     
-    {
-        type: "input",
-        name: "engineerEmail",
-        message: "What is the Engineer's email?",
-    },
+    const engineer = () => {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "engineerName",
+                message: "What is the Engineer's name?"
+            },
 
-    {
-        type: "input",
-        name: "engineerGithub",
-        message: "What is the Engineer's GitHub username?"
-    },
-]).then((data) => {
-    (data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub);
-    });
+            {
+                type: "input",
+                name: "engineerId",
+                message: "What is the Engineer's id?"
+            },
+            
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What is the Engineer's email?",
+            },
 
-const intern = () =>
-inquirer.prompt([
-{
-    type: "input",
-    name: "internName",
-    message: "What is the Intern's name?"
-},
+            {
+                type: "input",
+                name: "engineerGithub",
+                message: "What is the Engineer's GitHub username?"
+            },
+        ]).then(response => {
+                const engineer = new Engineer(
+                    response.engineerName,
+                    response.engineerId,
+                    response.engineerEmail,
+                    response.engineerGithub
+                    );
+            });
+    }
+    const intern = () => {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internName",
+                message: "What is the Intern's name?"
+            },
 
-{
-    type: "input",
-    name: "internId",
-    message: "What is the Intern's id?"
-},
+            {
+                type: "input",
+                name: "internId",
+                message: "What is the Intern's id?"
+            },
 
-{
-    type: "input",
-    name: "internEmail",
-    message: "What is the Intern's email?",
-},
+            {
+                type: "input",
+                name: "internEmail",
+                message: "What is the Intern's email?",
+            },
 
-{
-    type: "input",
-    name: "internSchool",
-    message: "What is the Intern's school?"
-},
-]).then((data) => {
-    (data.internName, data.internId, data.internEmail, data.internSchool);
-    });
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What is the Intern's school?"
+            },
+        ]).then(response => {
+                const intern = new Intern(
+                    response.internName,
+                    response.internId,
+                    response.internEmail,
+                    response.internSchool
+                    );
+            });
 
-
+    }
+    function createTeam(){
+    }
+};
 
 
 //teamMembers();
