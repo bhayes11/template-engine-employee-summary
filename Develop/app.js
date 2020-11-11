@@ -58,6 +58,8 @@ function teamMembers() {
     })  
 };
 
+
+
 createTeam();
 
 //console.log("hi");
