@@ -49,13 +49,14 @@ const teamMembers = () =>
                 "Finished building my team.",
             ],
         },
-    ]).then(function(data){
-        if (data.addTeam === "Engineer") {
-            engineer();
-        }else if (data.addTeam === "Intern"){
-            intern();
-        } else (outputTeamMembers());
-    })
+    ]).then((data) => {
+            if (data.addTeam === "Engineer") {
+                engineer();
+            } else if (data.addTeam === "Intern") {
+                intern();
+            } else
+                (outputTeamMembers());
+        })
 
     const engineer = () =>
     inquirer.prompt([
