@@ -44,7 +44,7 @@ const createTeam = () => {
                 response.managerEmail,
                 response.officeNumber
             );
-            console.log(manager);
+            //console.log(manager);
             teamMembers();
         })
 
@@ -58,17 +58,19 @@ const createTeam = () => {
                     "Add an Engineer",
                     "Add an Intern",
                     "Finished building my team.",
-                ],
-            },
+                ]
+            }
         ]).then((data) => {
-                if (data.addTeam === "Engineer") {
+            //console.log(data);
+                if (data.addTeam === "Add an Engineer") {
+                    //console.log(data.addTeam);
                     engineer();
-                } else if (data.addTeam === "Intern") {
+                } else if (data.addTeam === "Add an Intern") {
                     intern();
                 } else
                     createTeam();
-            })
-    }
+            });
+    };
     
     const engineer = () => {
         inquirer.prompt([
@@ -102,8 +104,9 @@ const createTeam = () => {
                     response.engineerEmail,
                     response.engineerGithub
                     );
-            });
-    }
+                    teamMembers();
+            }); 
+    };
     const intern = () => {
         inquirer.prompt([
             {
@@ -136,6 +139,7 @@ const createTeam = () => {
                     response.internEmail,
                     response.internSchool
                     );
+                    teamMembers();
             });
 
     }
