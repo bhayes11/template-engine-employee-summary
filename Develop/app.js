@@ -10,7 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const { Console } = require("console");
+const team = [];
 
+//createTeam function begins prompts
 const createTeam = () => {
     console.log("Build your team");
     inquirer.prompt([
@@ -28,7 +30,7 @@ const createTeam = () => {
     
         {
             type: "input",
-            name: "ManagerEmail",
+            name: "managerEmail",
             message: "What is the Manager's email?",
         },
 
@@ -44,10 +46,11 @@ const createTeam = () => {
                 response.managerEmail,
                 response.officeNumber
             );
-            //console.log(manager);
+            team.push(manager);
+            console.log(manager);
             teamMembers();
         })
-
+    //Additional team member prompt
     function teamMembers() {
         inquirer.prompt([
             {
@@ -68,10 +71,10 @@ const createTeam = () => {
                 } else if (data.addTeam === "Add an Intern") {
                     intern();
                 } else
-                    createTeam();
+                    finalTeam();
             });
     };
-    
+    //Engineer prompt
     const engineer = () => {
         inquirer.prompt([
             {
@@ -104,9 +107,12 @@ const createTeam = () => {
                     response.engineerEmail,
                     response.engineerGithub
                     );
+                    team.push(engineer);
+                    console.log(engineer);
                     teamMembers();
             }); 
     };
+    //Intern prompt
     const intern = () => {
         inquirer.prompt([
             {
@@ -139,19 +145,25 @@ const createTeam = () => {
                     response.internEmail,
                     response.internSchool
                     );
+                    team.push(intern);
+                    console.log(intern);
                     teamMembers();
             });
 
     }
-    function createTeam(){
-    }
+
 };
 
+//function ot generate HTML document
+function finalTeam() {
+    console.log("All done!");
+    const generateTeam = team.join(``);
+    fs.writeFile(outputPath, render(team), "utf-8", (err) => {
+        if (err) throw err; 
+    });
+}
 
-//teamMembers();
 createTeam();
-
-//console.log("hi");
 
 
 // Write code to use inquirer to gather information about the development team members,
