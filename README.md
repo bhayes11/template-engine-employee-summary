@@ -7,7 +7,7 @@ The purpose of this project was to build a Node CLI that takes in information ab
 ## Table of Contents
 - [Demo](#Demo)
 - [Screenshot](#Screenshot)
-- [Built With](#Built%20With)
+- [Built With](#Built-With)
 - [License](#License)
 
 ## Demo
